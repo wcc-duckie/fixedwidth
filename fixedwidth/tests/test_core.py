@@ -11,10 +11,7 @@ sys.path.append("..")
 
 import datetime
 
-try:
-    from fixedwidth import FixedWidth
-except ImportError:
-    from fixedwidth.fixedwidth import FixedWidth
+from fixedwidth.fixedwidth import FixedWidth
 
 SAMPLE_CONFIG = {
 

@@ -4,7 +4,6 @@ The FixedWidth class definition.
 from decimal import Decimal, ROUND_HALF_EVEN
 
 from datetime import datetime
-from six import string_types, integer_types
 
 
 class FixedWidth(object):
@@ -133,10 +132,10 @@ class FixedWidth(object):
                 #ensure default value provided matches type
                 if value['type'] == 'decimal' and value['default'] is not None:
                     value['default'] = Decimal(value['default'])
-                elif value['type'] == 'date' and isinstance(value['default'], string_types):
+                elif value['type'] == 'date' and isinstance(value['default'], str):
                     value['default'] = datetime.strptime(value['default'], value['format'])
 
-                types = {'string': string_types, 'integer': int, 'decimal': Decimal,
+                types = {'string': str, 'integer': int, 'decimal': Decimal,
                          'numeric': str, 'date': datetime}
                 if value['default'] is not None and not isinstance(value['default'], types[value['type']]):
                     raise ValueError("Default value for %s is not a valid %s" \
@@ -179,9 +178,9 @@ class FixedWidth(object):
         """
 
         type_tests = {
-            'string': lambda x: isinstance(x, string_types),
+            'string': lambda x: isinstance(x, str),
             'decimal': lambda x: isinstance(x, Decimal),
-            'integer': lambda x: isinstance(x, integer_types),
+            'integer': lambda x: isinstance(x, int),
             'numeric': lambda x: str(x).isdigit(),
             'date': lambda x: isinstance(x, datetime),
         }
